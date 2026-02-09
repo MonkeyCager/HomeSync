@@ -1,0 +1,123 @@
+You are building a responsive web app called HomeSync. It connects home buyers with realtors and other professionals (lenders, inspectors) and is based on an existing mobile Figma wireframe (logo at top, hamburger menu, listings, collaboration board, and chat). Focus on building a polished, interactive frontend only with no backend or real data persistence.
+
+Project overview
+Purpose: Help buyers and realtors collaborate on a home purchase in one place: browse listings, share notes and tasks, and chat with the team.
+
+Platforms: Responsive web app optimized first for mobile, but should also look good on tablet and desktop.
+
+Behavior: All navigation and UI interactions must work (open/close menus, filter dropdowns, tab switching, etc.), but use mock/static data only.
+
+Visual style and design system
+Overall style: modern, minimal, premium and calm. Use generous white space, soft shadows, and rounded corners.
+
+Color palette:
+
+Primary: a teal close to the HomeSync logo (you can pick a harmonious teal as the main brand color).
+
+Accent: a slightly darker teal for hover/active states.
+
+Neutrals: light gray backgrounds, medium gray for subtitles and secondary text, dark gray for body text.
+
+Typography:
+
+Use a single, consistent sans-serif font family across the app such as “Inter” or “Nunito”.
+
+Establish a clear hierarchy (page title, section heading, body text, caption).
+
+Components:
+
+Reusable primary button (solid teal, white text, medium border radius, hover state).
+
+Secondary button (outline or ghost with teal border/text).
+
+Card component with subtle shadow for listings, notes, tasks, and chat items.
+
+Rounded chat bubble icon fixed in the bottom-right on every screen; smaller and lighter so it doesn’t dominate but clearly indicates “open chat”.
+
+Consistency:
+
+Use the same header height, logo placement, and hamburger icon across all pages.
+
+Use the same spacing scale and border radius across cards, buttons, and inputs.
+
+Global layout and navigation
+Top navigation:
+
+Left: HomeSync logo (small version).
+
+Right: hamburger menu icon that opens a slide-in side menu from the right on mobile and from the left or right on larger screens.
+
+Side menu content:
+
+Items: Home, Listings, Collaboration Board, Chat, Login.
+
+Each item has: an icon, a title, and a short subtitle.
+
+Home: “Overview of your buying journey.”
+
+Listings: “Let’s find your future home!”
+
+Collaboration Board: “Keep notes and tasks organized.”
+
+Chat: “Connect with your team.”
+
+Login: “Access your saved workspace.”
+
+Group items visually into sections: “Explore” (Home, Listings, Collaboration Board), “Communicate” (Chat), and “Account” (Login).
+
+Include a user avatar placeholder and name at the top of the menu for future personalization.
+
+Chat bubble FAB:
+
+A round button in the bottom-right corner on every page.
+
+On click, opens the Chat page or a sliding chat panel.
+
+Pages to implement
+1. Home / Landing page
+Layout:
+
+Top: header with logo and hamburger.
+
+Under header: hero section with a smaller logo, app name “HomeSync”, and tagline “Connect - Collaborate - Buy - Sell”.
+
+Below tagline: a one-line value proposition like “Track every step of your home purchase with your agent in one place.”
+
+Hero image: full-width image of homes/neighborhood, slightly cropped for mobile, with soft overlay so text is readable if necessary.
+
+Content:
+
+Optional short “How it works” section with three horizontally scrollable cards on mobile: “Browse Listings”, “Collaborate”, “Stay in Sync”.
+
+Interactions:
+
+Hamburger opens side menu.
+
+Chat bubble opens Chat page/panel.
+
+2. Listings page
+Purpose: Show a scrollable list of homes using the card layout from the wireframe.
+
+Header: same global header. Under it, a small toolbar with:
+
+A dropdown labeled “Home” (represents saved searches or categories).
+
+A dropdown labeled “Sort” with options like “Price (Low to High)”, “Price (High to Low)”, “Newest”, “Closest”.
+
+Listing cards:
+
+Image thumbnail at the top.
+
+Title (e.g., “Home #1”).
+
+Row of key facts: beds, baths, square footage, location.
+
+Short summary text.
+
+Price row at the bottom right.
+
+Interactions:
+
+Clicking a listing card can open a modal with more details (image, description, and “Add to Board” / “Message Agent” buttons) – this is still front-end only.
+
+Dropdowns update the UI selection, with fake sorting and filtering (no real data needed, but the UI should react).
