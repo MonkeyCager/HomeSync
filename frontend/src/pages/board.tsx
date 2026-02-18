@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { 
   Plus, 
   MoreHorizontal, 
@@ -27,9 +27,82 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MOCK_BOARD } from "@/lib/data";
+import { cn } from "@/lib/utils";
+
+type BoardTask = {
+  id: string;
+  title: string;
+  status: "To Do" | "In Progress" | "Done";
+  date?: string;
+};
 
 export default function BoardPage() {
   const [visionItems, setVisionItems] = useState(MOCK_BOARD.visionBoard);
+  const [tasks, setTasks] = useState<BoardTask[]>(MOCK_BOARD.tasks as BoardTask[]);
+  const [taskMessage, setTaskMessage] = useState<string>("");
+
+  useEffect(() => {
+    async function loadTasks() {
+      try {
+        const response = await fetch("/api/tasks");
+        if (!response.ok) {
+          const payload = await response.json().catch(() => ({}));
+          const message =
+            typeof payload.message === "string"
+              ? payload.message
+              : "Unable to load tasks from the database.";
+          setTaskMessage(message);
+          return;
+        }
+
+        const data = (await response.json()) as BoardTask[];
+        if (Array.isArray(data) && data.length > 0) {
+          setTasks(data);
+          setTaskMessage("");
+        } else if (Array.isArray(data) && data.length === 0) {
+          setTasks([]);
+          setTaskMessage("No tasks found in the database.");
+        }
+      } catch {
+        setTaskMessage("Could not reach backend. Start frontend and backend together with npm run dev.");
+      }
+    }
+
+    loadTasks();
+  }, []);
+
+  async function toggleTaskStatus(taskId: string) {
+    const numericId = Number(taskId.replace("task-", ""));
+    if (!Number.isInteger(numericId)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/tasks/${numericId}/toggle`, {
+        method: "PATCH",
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        const message =
+          typeof payload.message === "string"
+            ? payload.message
+            : "Failed to update task.";
+        setTaskMessage(message);
+        return;
+      }
+
+      const updatedTask = payload as BoardTask;
+      setTasks((previous) =>
+        previous.map((task) =>
+          task.id === updatedTask.id ? updatedTask : task,
+        ),
+      );
+      setTaskMessage(`Updated "${updatedTask.title}" to ${updatedTask.status}.`);
+    } catch {
+      setTaskMessage("Unable to update task right now.");
+    }
+  }
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -200,14 +273,21 @@ export default function BoardPage() {
                <span className="bg-primary/10 text-primary p-1.5 rounded-xl"><CheckCircle2 className="h-4 w-4" /></span>
                Tasks
              </h3>
-             <Badge variant="secondary" className="rounded-full px-2.5 py-0.5 text-xs">3</Badge>
+             <Badge variant="secondary" className="rounded-full px-2.5 py-0.5 text-xs">{tasks.length}</Badge>
           </div>
+          {taskMessage ? (
+            <p className="text-xs text-muted-foreground px-1">{taskMessage}</p>
+          ) : null}
           
           <div className="space-y-3">
-            {MOCK_BOARD.tasks.map((task) => (
+            {tasks.map((task) => (
               <Card key={task.id} className="hover:shadow-md transition-shadow group rounded-2xl border-border/50">
                 <CardContent className="p-4 flex items-start gap-4">
-                  <button className="mt-1 text-muted-foreground hover:text-primary transition-colors shrink-0">
+                  <button
+                    className="mt-1 text-muted-foreground hover:text-primary transition-colors shrink-0"
+                    onClick={() => toggleTaskStatus(task.id)}
+                    aria-label={`Toggle status for ${task.title}`}
+                  >
                     {task.status === "Done" ? (
                       <CheckCircle2 className="h-5 w-5 text-primary" />
                     ) : (
@@ -269,5 +349,3 @@ export default function BoardPage() {
     </div>
   );
 }
-
-import { cn } from "@/lib/utils";

@@ -205,7 +205,7 @@ export default function ChatPage() {
                  </div>
                  <div className="flex items-center gap-2 ml-1">
                    <span className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">{selectedChat.time}</span>
-                   <Badge variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity p-0 h-auto text-[9px] hover:text-primary">Reply</Badge>
+                  <Badge variant="secondary" className="opacity-0 group-hover:opacity-100 transition-opacity p-0 h-auto text-[9px] hover:text-primary border-transparent bg-transparent shadow-none">Reply</Badge>
                  </div>
                </div>
              </div>
@@ -217,7 +217,7 @@ export default function ChatPage() {
                    <p className="text-sm leading-relaxed font-medium">I've reviewed the documents you sent over. Everything looks perfect, looking forward to the next steps!</p>
                  </div>
                  <div className="flex items-center gap-2 mr-1">
-                   <Badge variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity p-0 h-auto text-[9px] hover:text-primary">Edit</Badge>
+                  <Badge variant="secondary" className="opacity-0 group-hover:opacity-100 transition-opacity p-0 h-auto text-[9px] hover:text-primary border-transparent bg-transparent shadow-none">Edit</Badge>
                    <span className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">10:45 AM</span>
                    <div className="flex -space-x-1">
                      <Check className="h-2.5 w-2.5 text-primary" />
