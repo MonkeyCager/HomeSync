@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, MessageCircle, LogOut, MessageSquare, User } from "lucide-react";
+import { Menu, MessageCircle, LogOut, MessageSquare, User, Shield } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -93,6 +93,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 )}
               >
                 Profile
+              </Link>
+            ) : null}
+            {user?.userType === "admin" ? (
+              <Link
+                href="/admin"
+                className={cn(
+                  "text-sm font-medium px-3.5 py-1.5 rounded-full transition-all duration-200",
+                  location === "/admin"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
+                )}
+              >
+                Admin
               </Link>
             ) : null}
 
@@ -297,6 +310,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
                             </div>
                           </div>
                         </Link>
+                        {user.userType === "admin" ? (
+                          <Link href="/admin" onClick={() => setOpen(false)}>
+                            <div
+                              className={cn(
+                                "w-full flex items-center gap-4 p-3 rounded-lg transition-colors hover:bg-muted group cursor-pointer",
+                                location === "/admin" ? "bg-primary/10" : "bg-transparent",
+                              )}
+                            >
+                              <div
+                                className={cn(
+                                  "p-2 rounded-md transition-colors",
+                                  location === "/admin"
+                                    ? "bg-primary text-white"
+                                    : "bg-muted text-muted-foreground group-hover:text-foreground",
+                                )}
+                              >
+                                <Shield className="h-5 w-5" />
+                              </div>
+                              <div className="text-left">
+                                <p
+                                  className={cn(
+                                    "font-medium text-sm",
+                                    location === "/admin" ? "text-primary" : "text-foreground",
+                                  )}
+                                >
+                                  Admin
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  Manage users and roles
+                                </p>
+                              </div>
+                            </div>
+                          </Link>
+                        ) : null}
                         <button
                           onClick={handleLogout}
                           className="w-full flex items-center gap-4 p-3 rounded-lg transition-colors hover:bg-muted group cursor-pointer"

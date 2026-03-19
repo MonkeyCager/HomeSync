@@ -18,7 +18,8 @@ INSERT INTO app_user (first_name, last_name, email, password_hash, user_type, is
 VALUES
   ('Alex', 'Buyer', 'alex.buyer@homesync.local', '$2b$12$faiFjYvD3kRBUxYjI3W2y.ka7tQcJ9q39lJ4Z2JDtSIBs6wSPZWaS', 'buyer', TRUE),
   ('Sarah', 'Realtor', 'sarah.realtor@homesync.local', '$2b$12$faiFjYvD3kRBUxYjI3W2y.ka7tQcJ9q39lJ4Z2JDtSIBs6wSPZWaS', 'realtor', TRUE),
-  ('Michael', 'Lender', 'michael.lender@homesync.local', '$2b$12$faiFjYvD3kRBUxYjI3W2y.ka7tQcJ9q39lJ4Z2JDtSIBs6wSPZWaS', 'collaborator', TRUE);
+  ('Michael', 'Lender', 'michael.lender@homesync.local', '$2b$12$faiFjYvD3kRBUxYjI3W2y.ka7tQcJ9q39lJ4Z2JDtSIBs6wSPZWaS', 'collaborator', TRUE),
+  ('Avery', 'Admin', 'admin@homesync.local', '$2b$12$faiFjYvD3kRBUxYjI3W2y.ka7tQcJ9q39lJ4Z2JDtSIBs6wSPZWaS', 'admin', TRUE);
 
 INSERT INTO buyer (user_id, phone, budget_min, budget_max, preapproved, preferred_city)
 VALUES

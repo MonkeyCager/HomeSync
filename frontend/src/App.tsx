@@ -12,6 +12,7 @@ import ListingsPage from "@/pages/listings";
 import BoardPage from "@/pages/board";
 import ChatPage from "@/pages/chat";
 import ProfilePage from "@/pages/profile";
+import AdminPage from "@/pages/admin";
 import LoginPage from "@/pages/login";
 import SignupPage from "@/pages/signup";
 import NotFound from "@/pages/not-found";
@@ -56,6 +57,13 @@ function Router() {
         <ProtectedRoute>
           <Layout>
             <ProfilePage />
+          </Layout>
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin">
+        <ProtectedRoute allowedRoles={["admin"]}>
+          <Layout>
+            <AdminPage />
           </Layout>
         </ProtectedRoute>
       </Route>

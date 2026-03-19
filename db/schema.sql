@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS app_user (
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
-  user_type VARCHAR(50) NOT NULL CHECK (user_type IN ('buyer', 'realtor', 'collaborator')),
+  user_type VARCHAR(50) NOT NULL CHECK (user_type IN ('buyer', 'realtor', 'collaborator', 'admin')),
   token_version INT NOT NULL DEFAULT 1,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -18,6 +18,13 @@ ALTER TABLE IF EXISTS app_user
   ADD COLUMN IF NOT EXISTS first_name VARCHAR(100),
   ADD COLUMN IF NOT EXISTS last_name VARCHAR(100),
   ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+ALTER TABLE IF EXISTS app_user
+  DROP CONSTRAINT IF EXISTS app_user_user_type_check;
+
+ALTER TABLE IF EXISTS app_user
+  ADD CONSTRAINT app_user_user_type_check
+  CHECK (user_type IN ('buyer', 'realtor', 'collaborator', 'admin'));
 
 CREATE TABLE IF NOT EXISTS buyer (
   buyer_id SERIAL PRIMARY KEY,

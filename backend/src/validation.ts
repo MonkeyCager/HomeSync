@@ -84,3 +84,10 @@ export const createConversationSchema = z.object({
   listingId: z.number().int().positive().optional(),
   participantUserId: z.number().int().positive(),
 });
+
+export const adminUpdateUserSchema = z
+  .object({
+    userType: z.enum(["buyer", "realtor", "collaborator", "admin"]).optional(),
+    isActive: z.boolean().optional(),
+  })
+  .strict();
